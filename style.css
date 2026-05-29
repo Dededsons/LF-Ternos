@@ -1,0 +1,1741 @@
+/* ==========================================================================
+   1. VARIÁVEIS E RESET
+   ========================================================================== */
+:root {
+    /* Paleta de Cores (Estilo Luxo/Premium) */
+    --color-primary: #D4AF37;       /* Dourado Metálico */
+    --color-primary-dark: #B5952F;  /* Dourado Escuro para Hover */
+    --color-bg-dark: #0A0A0A;       /* Fundo Principal Escuro */
+    --color-bg-card: #141414;       /* Fundo de Cards */
+    --color-bg-alt: #1a1a1a;        /* Fundo Alternativo Secundário */
+    --color-text-light: #F8F9FA;    /* Texto Claro */
+    --color-text-muted: #A0AEC0;    /* Texto Secundário */
+    --color-border: #333333;        /* Bordas Discretas */
+    
+    /* Tipografia */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+    
+    /* Espaçamentos e Estrutura */
+    --container-max: 1200px;
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --radius-sm: 4px;
+    --radius-md: 8px;
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-light);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+ul { list-style: none; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* ==========================================================================
+   2. CLASSES UTILITÁRIAS
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section {
+    padding: 80px 0;
+}
+
+.section--dark {
+    background-color: #050505;
+}
+
+.section__header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section__title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--color-primary);
+}
+
+.section__subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.grid {
+    display: grid;
+    gap: 30px;
+}
+
+/* ==========================================================================
+   3. BOTÕES
+   ========================================================================== */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-smooth);
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.btn--primary {
+    background-color: var(--color-primary);
+    color: #000;
+}
+
+.btn--primary:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.btn--secondary {
+    background-color: transparent;
+    color: var(--color-text-light);
+    border: 1px solid var(--color-text-light);
+}
+
+.btn--secondary:hover {
+    background-color: var(--color-text-light);
+    color: var(--color-bg-dark);
+}
+
+.btn--outline {
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn--outline:hover {
+    background-color: var(--color-primary);
+    color: #000;
+}
+
+/* ==========================================================================
+   4. HEADER E NAVBAR
+   ========================================================================== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.header__logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.header__logo span {
+    color: var(--color-primary);
+}
+
+.navbar__list {
+    display: flex;
+    gap: 30px;
+}
+
+.navbar__link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text-light);
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+.navbar__link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--color-primary);
+    transition: var(--transition-smooth);
+}
+
+.navbar__link:hover::after {
+    width: 100%;
+}
+
+.navbar__link:hover {
+    color: var(--color-primary);
+}
+
+@media (max-width: 900px) {
+    .navbar, .header__btn {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   5. HERO SECTION
+   ========================================================================== */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-image: url("img/260\ x\ 260\ px\ \(2\).png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.7), rgba(10,10,10,0.9));
+}
+
+.hero__content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin-top: 80px;
+}
+
+.hero__subtitle {
+    display: block;
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.hero__title {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 25px;
+}
+
+.hero__text {
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+    margin-bottom: 40px;
+}
+
+.hero__actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* ==========================================================================
+   6. COMO FUNCIONA (STEPS)
+   ========================================================================== */
+.steps__grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 40px;
+}
+
+.step__item {
+    text-align: center;
+    position: relative;
+}
+
+.step__number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: #000;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    box-shadow: 0 0 0 5px rgba(212, 175, 55, 0.2);
+}
+
+.step__title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.step__text {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   7. SERVIÇOS / DIFERENCIAIS
+   ========================================================================== */
+.services__grid {
+    grid-template-columns: 1fr;
+}
+
+.card {
+    background-color: var(--color-bg-card);
+    padding: 40px 30px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--color-primary);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card__icon {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+}
+
+.card__title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.card__text {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   8. CATÁLOGO DE PRODUTOS
+   ========================================================================== */
+.catalog__grid {
+    grid-template-columns: 1fr;
+    margin-bottom: 50px;
+}
+
+.catalog__item {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+}
+
+.catalog__item:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+}
+
+.catalog__img-wrapper {
+    overflow: hidden;
+}
+
+.catalog__img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.catalog__item:hover .catalog__img {
+    transform: scale(1.08);
+}
+
+.catalog__content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.catalog__tag {
+    align-self: flex-start;
+    background-color: rgba(212, 175, 55, 0.1);
+    color: var(--color-primary);
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 20px;
+    margin-bottom: 12px;
+}
+
+.catalog__title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.catalog__desc {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.catalog__link {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-block;
+    transition: var(--transition-smooth);
+}
+
+.catalog__link:hover {
+    color: var(--color-text-light);
+    transform: translateX(5px);
+}
+
+.catalog__action {
+    text-align: center;
+}
+
+/* ==========================================================================
+   9. COLEÇÕES / DESTAQUES
+   ========================================================================== */
+.collection__grid {
+    grid-template-columns: 1fr;
+}
+
+.collection__item {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.collection__img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.collection__item:hover .collection__img {
+    transform: scale(1.05);
+}
+
+.collection__info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
+
+.collection__name {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 5px;
+}
+
+.collection__desc {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   10. FOOTER E ÍCONES SOCIAIS (ALINHAMENTO CORRIGIDO)
+   ========================================================================== */
+.footer {
+    background-color: #020202;
+    padding: 80px 0 20px;
+    border-top: 1px solid var(--color-border);
+}
+
+.footer__container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.footer__title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+}
+
+.footer__text, .footer__links a, .footer__contact p {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+.footer__contact p {
+    display: flex;
+    align-items: center;
+}
+
+.footer__contact i:not(.fa-brands) {
+    color: var(--color-primary);
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.footer__links a:hover {
+    color: var(--color-primary);
+}
+
+/* Correção Definitiva do Alinhamento dos Ícones */
+.footer__socials {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.footer__socials a {
+    display: inline-flex; /* Garante estrutura flex no container do ícone */
+    align-items: center;  /* Centralização Vertical */
+    justify-content: center; /* Centralização Horizontal */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color-bg-card);
+    color: var(--color-primary);
+    transition: var(--transition-smooth);
+    text-decoration: none;
+}
+
+.footer__socials a i {
+    line-height: 1; /* Remove espaçamentos fantasma do FontAwesome */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer__socials a:hover {
+    background-color: var(--color-primary);
+    color: #000;
+}
+
+.footer__bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   11. MEDIA QUERIES (RESPONSIVIDADE)
+   ========================================================================== */
+
+/* Tablet */
+@media (min-width: 768px) {
+    .steps__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .services__grid, .collection__grid, .catalog__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .footer__container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .hero__title {
+        font-size: 3rem;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .steps__grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 passos em linha */
+    }
+    
+    .services__grid, .collection__grid, .catalog__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .hero__title {
+        font-size: 4rem;
+    }
+}
+
+/* Mobile Menor */
+@media (max-width: 480px) {
+    .hero__actions {
+        flex-direction: column;
+    }
+    
+    .hero__title {
+        font-size: 2.5rem;
+    }
+}
+
+/* ==========================================================================
+   12. SLIDER / CARROSSEL PREMIUM (NOVO)
+   ========================================================================== */
+.slider-section {
+    background-color: var(--color-bg-dark);
+    position: relative;
+    overflow: hidden; /* Evita que arrows estoure a tela no mobile */
+}
+
+.relative { position: relative; }
+
+.slider-wrapper {
+    position: relative;
+    margin-top: 50px;
+    padding: 0 10px;
+}
+
+.slider-track {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 20px 0 40px 0; /* Padding inferior para a sombra não cortar */
+    scrollbar-width: none; /* Oculta no Firefox */
+    -ms-overflow-style: none;  /* Oculta no IE/Edge */
+}
+
+.slider-track::-webkit-scrollbar {
+    display: none; /* Oculta no Chrome/Safari */
+}
+
+.slider-card {
+    flex: 0 0 320px; /* Tamanho fixo do card */
+    scroll-snap-align: center;
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-card);
+    transition: var(--transition-smooth);
+    display: block;
+    aspect-ratio: 3/4; /* Proporção elegante de retrato */
+    cursor: pointer;
+}
+
+/* Efeito Premium de Hover no Card */
+.slider-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-primary);
+    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15); /* Brilho dourado */
+}
+
+.slider-card__img-box {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.slider-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slider-card:hover .slider-card__img {
+    transform: scale(1.08); /* Zoom dramático suave */
+}
+
+.slider-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.4) 40%, transparent 100%);
+    transition: background 0.4s ease;
+}
+
+.slider-card:hover .slider-card__overlay {
+    background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(212,175,55,0.15) 50%, transparent 100%);
+}
+
+.slider-card__info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 25px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.slider-card__category {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.slider-card__title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--color-text-light);
+    line-height: 1.1;
+}
+
+/* Setas do Slider */
+.slider-arrow {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: var(--color-bg-dark);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-light);
+    font-size: 1.2rem;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: var(--transition-smooth);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.slider-arrow:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #000;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-arrow--prev { left: -20px; }
+.slider-arrow--next { right: -20px; }
+
+/* Responsividade do Slider */
+@media (max-width: 768px) {
+    .slider-card {
+        flex: 0 0 80%; /* Ocupa 80% da tela no mobile */
+        scroll-snap-align: center;
+    }
+    
+    .slider-arrow {
+        display: none; /* No mobile o usuário arrasta com o dedo */
+    }
+}
+
+/* ==========================================================================
+   13. PÁGINAS INTERNAS POR COR (GRID)
+   ========================================================================== */
+.internal-page-header {
+    padding: 150px 0 60px; /* Compensa navbar fixa */
+    background: linear-gradient(to bottom, #111, var(--color-bg-dark));
+    text-align: center;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.breadcrumb {
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.internal-page-header .section__title { font-size: 3.5rem; }
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 60px 0;
+}
+
+/* ==========================================================================
+   VARIÁVEIS ADICIONAIS (Verifique se já possui semelhantes em seu :root)
+   ========================================================================== */
+:root {
+    --color-bg-dark: #050505;
+    --color-bg-card: #0f0f0f;
+    --color-bg-card-hover: #161616;
+    --color-primary: #d4af37; /* Dourado Premium */
+    --color-primary-rgb: 212, 175, 55;
+    --color-text-light: #ffffff;
+    --color-text-muted: #a0a0a0;
+    --color-border: rgba(212, 175, 55, 0.15);
+    --color-border-hover: rgba(212, 175, 55, 0.4);
+    --font-heading: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --radius-md: 8px;
+    --radius-lg: 16px;
+}
+
+/* Utilitário para limitar largura de seções de texto/FAQ */
+.container--narrow {
+    max-width: 800px !important;
+}
+
+/* ==========================================================================
+   SEÇÃO "COMO FUNCIONA" REFINADA
+   ========================================================================== */
+.steps__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.step__card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 40px 30px;
+    position: relative;
+    transition: var(--transition-smooth);
+    overflow: hidden;
+}
+
+.step__card:hover {
+    transform: translateY(-10px);
+    border-color: var(--color-border-hover);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(var(--color-primary-rgb), 0.05);
+}
+
+/* Linha dourada decorativa sutil no topo do card ao passar o mouse */
+.step__card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+    transform: scaleX(0);
+    transition: var(--transition-smooth);
+}
+
+.step__card:hover::before {
+    transform: scaleX(1);
+}
+
+.step__card-badge {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: rgba(var(--color-primary-rgb), 0.08);
+    transition: var(--transition-smooth);
+    user-select: none;
+}
+
+.step__card:hover .step__card-badge {
+    color: rgba(var(--color-primary-rgb), 0.18);
+    transform: scale(1.1);
+}
+
+.step__card-icon {
+    font-size: 2.2rem;
+    color: var(--color-primary);
+    margin-bottom: 25px;
+    display: inline-block;
+    transition: var(--transition-smooth);
+}
+
+.step__card:hover .step__card-icon {
+    transform: rotate(-5deg) scale(1.05);
+}
+
+.step__card-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: var(--color-text-light);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.step__card-text {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   NOVA SEÇÃO: FAQ ACCORDION PREMIUM
+   ========================================================================== */
+.faq__list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.faq__item {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: var(--transition-smooth);
+}
+
+.faq__item:hover {
+    border-color: var(--color-border-hover);
+}
+
+.faq__trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 24px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    cursor: pointer;
+    color: var(--color-text-light);
+    gap: 20px;
+}
+
+.faq__question {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+}
+
+.faq__item:hover .faq__question {
+    color: var(--color-primary);
+}
+
+.faq__icon-box {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(var(--color-primary-rgb), 0.05);
+    border: 1px solid var(--color-border);
+    display: grid;
+    place-items: center;
+    font-size: 0.85rem;
+    color: var(--color-primary);
+    transition: var(--transition-smooth);
+    flex-shrink: 0;
+}
+
+/* Estado Ativo do FAQ */
+.faq__item.is-active {
+    border-color: rgba(var(--color-primary-rgb), 0.4);
+    background-color: var(--color-bg-card-hover);
+}
+
+.faq__item.is-active .faq__icon-box {
+    transform: rotate(135deg); /* Transforma o + em um x elegante */
+    background-color: var(--color-primary);
+    color: #000;
+}
+
+/* Container do conteúdo dinâmico */
+.faq__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.faq__text {
+    padding: 0 30px 28px 30px;
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+/* ==========================================================================
+   NOVA SEÇÃO: MAPA E LOCALIZAÇÃO RESPONSIVA
+   ========================================================================== */
+.location-map__wrapper {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    margin-top: 40px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.location-map__iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    /* Filtro CSS avançado para mesclar o mapa ao tema escuro da marca */
+    filter: invert(90%) hue-rotate(180deg) ssat(120%) contrast(90%);
+}
+
+/* Ajustes Responsivos para Telas Menores */
+@media (max-width: 768px) {
+    .step__card {
+        padding: 30px 20px;
+    }
+    
+    .faq__trigger {
+        padding: 20px;
+    }
+    
+    .faq__text {
+        padding: 0 20px 20px 20px;
+    }
+    
+    .location-map__wrapper {
+        height: 320px;
+    }
+}
+
+/* ==========================================================================
+   ALINHAMENTO DA LOGO COM IMAGEM
+   ========================================================================== */
+.header__logo {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espaço exato entre a imagem e o texto do título */
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--color-text-light);
+    font-weight: 700;
+}
+
+.header__logo-img {
+    height: 45px; /* Altura ideal para não quebrar a proporção do cabeçalho */
+    width: auto;  /* Mantém a proporção original da largura da imagem */
+    object-fit: contain;
+    transition: var(--transition-smooth);
+}
+
+.header__logo:hover .header__logo-img {
+    transform: scale(1.05); /* Efeito sutil de aproximação ao passar o mouse */
+}
+
+.header__logo span {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.header__logo em {
+    font-size: 0.85rem;
+    font-style: normal;
+    color: var(--color-primary); /* Destaca o "Ternos" em dourado */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Ajuste sutil para o rodapé (opcional, caso queira replicar o comportamento lá) */
+.footer__brand .header__logo {
+    margin-bottom: 20px;
+}
+
+/* ==========================================================================
+   SUPORTE PARA LOGO COM IMAGEM NO HEADER (COMPLETO)
+   ========================================================================== */
+.header__logo {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Distância refinada entre a imagem da logo e o texto */
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: var(--color-text-light);
+    font-weight: 700;
+}
+
+.header__logo-img {
+    height: 48px; /* Mantém uma proporção nobre e legível no menu fixo */
+    width: auto;  /* Evita distorções na largura original */
+    object-fit: contain;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.header__logo:hover .header__logo-img {
+    transform: scale(1.06); /* Microinteração elegante ao passar o mouse */
+}
+
+.header__logo span {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.header__logo em {
+    font-size: 0.8rem;
+    font-style: normal;
+    color: var(--color-primary, #d4af37);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   ESTILOS PREMIUM DA SEÇÃO "COMO FUNCIONA", FAQ E MAPA RESPONSIVO
+   ========================================================================== */
+.container--narrow {
+    max-width: 800px !important;
+}
+
+.steps__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.step__card {
+    background-color: #0f0f0f;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 8px;
+    padding: 40px 30px;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+}
+
+.step__card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(212, 175, 55, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.step__card-badge {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: rgba(212, 175, 55, 0.08);
+    user-select: none;
+}
+
+.step__card-icon {
+    font-size: 2.2rem;
+    color: var(--color-primary, #d4af37);
+    margin-bottom: 25px;
+}
+
+.step__card-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.step__card-text {
+    font-size: 0.95rem;
+    color: #a0a0a0;
+    line-height: 1.6;
+}
+
+/* FAQ Accordion CSS */
+.faq__list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.faq__item {
+    background-color: #0f0f0f;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.faq__trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 24px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.faq__question {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.faq__icon-box {
+    color: var(--color-primary, #d4af37);
+    transition: transform 0.4s ease;
+}
+
+.faq__item.is-active {
+    border-color: rgba(212, 175, 55, 0.4);
+    background-color: #161616;
+}
+
+.faq__item.is-active .faq__icon-box {
+    transform: rotate(135deg); /* Transforma o "+" em um "x" limpo */
+}
+
+.faq__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.faq__text {
+    padding: 0 30px 28px 30px;
+    color: #a0a0a0;
+    line-height: 1.7;
+}
+
+/* Wrapper customizado do Mapa */
+.location-map__wrapper {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    margin-top: 40px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.location-map__iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    filter: invert(90%) hue-rotate(180deg) saturate(120%) contrast(90%);
+}
+
+/* Responsividade de Dispositivos Móveis */
+@media (max-width: 768px) {
+    .header__logo-img {
+        height: 40px; /* Reduz levemente em telas mobile para poupar espaço */
+    }
+    .location-map__wrapper {
+        height: 320px;
+    }
+}
+
+/* ==========================================================================
+   PÁGINAS INTERNAS DE CATÁLOGO (Ex: preto.html, azul.html)
+   ========================================================================== */
+.catalog-page {
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 40px 30px;
+}
+
+.model-card {
+    background-color: #0f0f0f;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.model-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.model-card__img-box {
+    width: 100%;
+    aspect-ratio: 3/4; /* Mantém as imagens de roupas proporcionais */
+    overflow: hidden;
+    position: relative;
+    background-color: #1a1a1a;
+}
+
+.model-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.model-card:hover .model-card__img {
+    transform: scale(1.05);
+}
+
+.model-card__info {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.model-card__title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.model-card__desc {
+    font-size: 0.95rem;
+    color: #a0a0a0;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    flex-grow: 1; /* Empurra o botão para baixo para alinhamento uniforme */
+}
+
+/* Modificador de Botão para preencher a largura do card */
+.btn--full {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   VARIÁVEIS & RESET (Tema Look Fino)
+   ========================================= */
+:root {
+    --primary-color: #111111;
+    --gold: #c5a059;
+    --gold-hover: #b08d4a;
+    --bg-dark: #1a1a1a;
+    --text-light: #f5f5f5;
+    --text-muted: #aaaaaa;
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .header__logo span { font-family: 'Playfair Display', serif; }
+
+/* =========================================
+   CARROSSEL PREMIUM (Foco Principal)
+   ========================================= */
+.slider-section {
+    padding: 80px 0;
+    background: var(--bg-dark);
+}
+
+.slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.slider-track {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory; /* Scroll suave de item em item nativo */
+    -webkit-overflow-scrolling: touch; /* Fluidez no iOS */
+    padding-bottom: 20px;
+    
+    /* Esconde barra de rolagem mas mantém função */
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+}
+
+.slider-track::-webkit-scrollbar { display: none; }
+
+.slider-card {
+    flex: 0 0 320px;
+    scroll-snap-align: start;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text-light);
+    transition: var(--transition-smooth);
+    display: block;
+}
+
+.slider-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
+.slider-card__img-box {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+
+.slider-card__img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.slider-card:hover .slider-card__img { transform: scale(1.05); }
+
+.slider-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 60%);
+}
+
+.slider-card__info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 24px;
+    z-index: 2;
+}
+
+.slider-card__category {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--gold);
+    letter-spacing: 2px;
+}
+
+.slider-card__title { font-size: 1.5rem; margin-top: 8px; }
+
+/* Setas do Carrossel (UX Melhorada) */
+.slider-arrow {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--gold);
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 10;
+    cursor: pointer;
+    display: flex; justify-content: center; align-items: center;
+    backdrop-filter: blur(5px);
+    transition: var(--transition-smooth);
+    user-select: none; /* Impede seleção de texto ao segurar */
+    -webkit-tap-highlight-color: transparent;
+}
+
+.slider-arrow:hover {
+    background: var(--gold);
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.slider-arrow:active { transform: scale(0.95); } /* Feedback de clique */
+
+.slider-arrow--prev { left: -25px; }
+.slider-arrow--next { right: -25px; }
+
+/* Ocultar botões nativos em telas menores para priorizar o touch */
+@media (max-width: 768px) {
+    .slider-arrow { display: none; }
+    .slider-card { flex: 0 0 85vw; }
+}
+hero
+
+/* =========================================
+   FAQ ACCORDION (Correção de Funcionalidade)
+   ========================================= */
+.faq__item { border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+.faq__trigger {
+    width: 100%;
+    display: flex; justify-content: space-between; align-items: center;
+    background: none; border: none; color: white;
+    padding: 20px 0; cursor: pointer;
+    font-size: 1.1rem; text-align: left;
+}
+
+.faq__icon-box { transition: transform 0.3s ease; color: var(--gold); }
+.faq__trigger.active .faq__icon-box { transform: rotate(45deg); }
+
+.faq__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.faq__text { padding-bottom: 20px; color: var(--text-muted); line-height: 1.6; }
+
+/* ==========================================================
+   MELHORIAS EXCLUSIVAS MOBILE (NÃO AFETA DESKTOP)
+   ========================================================== */
+
+/* Prevenção extra para o Desktop: Oculta itens exclusivos do mobile */
+@media (min-width: 769px) {
+    .hamburger, 
+    .menu-overlay, 
+    .slider-dots {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* --- CONFIGURAÇÃO DA BARRA SUPERIOR --- */
+    .header__container {
+        display: flex;
+        justify-content: space-between; /* Mantém a Logo na esquerda e o resto na direita */
+        align-items: center;
+        width: 100%;
+    }
+
+    /* Alternância de botões entre ambientes */
+    .header__btn-desktop {
+        display: none !important; /* Força o botão a sumir para não espremer o hambúrguer */
+    }
+
+    .header__btn-mobile {
+        display: inline-flex !important;
+        width: 85%;
+        justify-content: center;
+        margin-bottom: 2rem; /* Empurra os links para baixo, mantendo o botão isolado no topo */
+
+        /* Estética Premium */
+        background-color: #1a1a1a !important; /* Fundo escuro elegante */
+        color: #d4af37 !important; /* Texto dourado */
+        border: 1px solid #d4af37 !important; /* Borda fina dourada */
+        border-radius: 3px;
+        padding: 14px 0;
+        font-size: 0.95rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 2px; /* Letras espaçadas dão ar de luxo */
+        transition: all 0.3s ease;
+    }
+
+    /* Ativa o botão hambúrguer visualmente e joga para o canto */
+    .hamburger {
+        display: flex !important; 
+        position: relative;
+        z-index: 1000 !important; /* Previne que fique escondido atrás do menu */
+        margin-left: auto; /* Força o botão para o extremo direito da tela */
+    }
+
+    /* --- MENU LATERAL MOBILE --- */
+    .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 998;
+    }
+
+    .menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .navbar {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: #ffffff;
+        border-left: 2px solid #d4af37;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        transition: right 0.4s ease-in-out;
+        z-index: 999; /* Fica abaixo do botão hambúrguer, mas acima do overlay */
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; /* Centraliza verticalmente o conteúdo (links + botão) */
+        gap: 2rem; /* Espaçamento mais coeso para caber tudo */
+    }
+
+    .navbar.active {
+        right: 0;
+    }
+
+    .navbar__list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 0;
+    }
+
+    .navbar__link {
+        color: #1a1a1a; /* Tom bem escuro, quase preto */
+        font-size: 1.1rem;
+        font-weight: 400;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .navbar__link:hover, 
+    .navbar__link:active {
+        color: #d4af37; /* Muda para dourado */
+        transform: translateX(8px); /* Desliza suavemente um pouco para a direita */
+    }
+
+    /* --- CORREÇÃO DO SLIDER (CATÁLOGO DESTRAVADO) --- */
+    /* Mantemos o wrapper original intocado para o script fluir na horizontal */
+    .slider-wrapper {
+        display: flex !important; 
+        flex-direction: row !important; /* Força os cards a continuarem em linha */
+    }
+
+    /* Move rigidamente as bolinhas para baixo sem quebrar o carrossel */
+    .slider-dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin-top: 25px; /* Empurra as bolinhas para baixo da altura dos cards */
+        position: relative;
+        z-index: 5;
+        width: 100%;
+    }
+
+    .slider-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #d1d1d1;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .slider-dot.active {
+        background-color: #d4af37; /* Mantido o seu tom dourado! */
+        transform: scale(1.2);
+    }
+}
+
+/* --- CONFIGURAÇÕES DO HEADER DESKTOP --- */
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+}
+
+.navbar__list {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+/* Oculta o botão mobile por padrão no computador */
+.header__btn-mobile {
+    display: none;
+}
+
+.header__btn-desktop {
+    display: inline-flex;
+}
+
+.hamburger {
+    display: none; /* Escondido no computador */
+    cursor: pointer;
+    background: none;
+    border: none;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 1000; /* Fica acima de tudo, inclusive do menu aberto */
+    position: relative;
+}
+
+.hamburger__line {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: #d4af37;
+    transition: all 0.3s ease-in-out;
+}
+
+/* --- ANIMAÇÃO PARA O "X" QUANDO ATIVO --- */
+.hamburger.active .hamburger__line:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active .hamburger__line:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.hamburger.active .hamburger__line:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Essa classe representa a div pai que segura tanto o wrapper quanto as dots */
+.catalogo-container {
+    display: flex;
+    flex-direction: column; /* Empilha: primeiro os cards, depois as bolinhas */
+    align-items: center;    /* Centraliza as bolinhas no meio da tela */
+    width: 100%;
+}
