@@ -208,7 +208,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ==========================================================================
-   5. HERO SECTION
+   5. HERO SECTION (CORRIGIDO PARA iOS)
    ========================================================================== */
 .hero {
     position: relative;
@@ -217,25 +217,36 @@ img { max-width: 100%; height: auto; display: block; }
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-image: url("img/260\ x\ 260\ px\ \(2\).png");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    overflow: hidden;
 }
 
+/* IMAGEM AGORA NO HTML (mais compatível com iOS) */
+.hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+/* OVERLAY */
 .hero__overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to bottom, rgba(10,10,10,0.7), rgba(10,10,10,0.9));
+    z-index: 1;
 }
 
+/* CONTEÚDO */
 .hero__content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     max-width: 800px;
     margin-top: 80px;
 }
 
+/* RESTANTE (mantido igual) */
 .hero__subtitle {
     display: block;
     color: var(--color-primary);
@@ -262,6 +273,21 @@ img { max-width: 100%; height: auto; display: block; }
     display: flex;
     gap: 20px;
     justify-content: center;
+}
+
+.hero--internal {
+    min-height: 40vh;
+    padding-top: 150px;
+    padding-bottom: 60px;
+}
+
+.hero__content--center {
+    text-align: center;
+}
+
+.hero__text--center {
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 /* ==========================================================================
@@ -1738,4 +1764,217 @@ hero
     flex-direction: column; /* Empilha: primeiro os cards, depois as bolinhas */
     align-items: center;    /* Centraliza as bolinhas no meio da tela */
     width: 100%;
+}
+
+/* ==========================================
+   CSS: SEÇÃO DE AVALIAÇÕES (PREMIUM)
+   ========================================== */
+
+/* Cores Base (variáveis locais para facilitar edição) */
+.premium-reviews {
+    --pr-bg: transparent; /* Se adapta ao fundo da sua main/body */
+    --pr-card-bg: #141414; /* Fundo escuro elegante para o card */
+    --pr-text: #e0e0e0;
+    --pr-title: #ffffff;
+    --pr-gold: #d4af37;
+    --pr-border: rgba(212, 175, 55, 0.15); /* Borda dourada sutil */
+    
+    padding: 5rem 0;
+    background-color: var(--pr-bg);
+    font-family: 'Inter', sans-serif;
+}
+
+.premium-reviews__container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Cabeçalho da Seção */
+.premium-reviews__header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+
+.premium-reviews__title {
+    font-family: 'Playfair Display', serif; /* Mantendo a identidade premium */
+    font-size: 2.2rem;
+    color: var(--pr-title);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.premium-reviews__badge {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    border: 1px solid var(--pr-border);
+}
+
+.premium-reviews__stars-global {
+    color: var(--pr-gold);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.premium-reviews__score {
+    color: var(--pr-text);
+    font-size: 0.9rem;
+}
+
+.premium-reviews__score strong {
+    color: var(--pr-title);
+    font-size: 1rem;
+}
+
+/* Grid de Cards */
+.premium-reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+/* Estilização do Card */
+.premium-reviews__card {
+    background-color: var(--pr-card-bg);
+    border: 1px solid var(--pr-border);
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.premium-reviews__card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    border-color: rgba(212, 175, 55, 0.4); /* Realça o dourado ao passar o mouse */
+}
+
+/* Cabeçalho do Card (Avatar + Nome) */
+.premium-reviews__card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.premium-reviews__avatar {
+    width: 48px;
+    height: 48px;
+    background-color: var(--pr-gold);
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.premium-reviews__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.premium-reviews__name {
+    color: var(--pr-title);
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.premium-reviews__source {
+    color: #a0a0a0;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.premium-reviews__stars {
+    color: var(--pr-gold);
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+}
+
+.premium-reviews__text {
+    color: var(--pr-text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-style: italic;
+    margin: 0;
+}
+
+/* Rodapé / Botão */
+.premium-reviews__footer {
+    text-align: center;
+    margin-top: 3.5rem;
+}
+
+.premium-reviews__btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background-color: transparent;
+    color: var(--pr-gold);
+    border: 1px solid var(--pr-gold);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.premium-reviews__btn:hover {
+    background-color: var(--pr-gold);
+    color: #1a1a1a;
+}
+
+/* ==========================================
+   RESPONSIVIDADE (TABLET E MOBILE)
+   ========================================== */
+@media (max-width: 992px) {
+    .premium-reviews__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    /* Transforma o Grid em um Carrossel Horizontal no Mobile sem usar JS */
+    .premium-reviews__grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1.5rem;
+        padding-bottom: 2rem; /* Espaço para a sombra não cortar */
+        
+        /* Oculta a barra de rolagem para um visual mais limpo */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;  /* IE and Edge */
+        -webkit-overflow-scrolling: touch; /* Suavidade no Safari/iOS */
+    }
+
+    .premium-reviews__grid::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+
+    .premium-reviews__card {
+        min-width: 85%; /* Deixa um pedaço do próximo card visível para indicar scroll */
+        scroll-snap-align: center;
+        flex-shrink: 0;
+    }
+
+    .premium-reviews__title {
+        font-size: 1.8rem;
+    }
 }
